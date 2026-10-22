@@ -1,0 +1,143 @@
+{
+  "version": "1.1.0",
+  "verificadoEl": "2026-10-22",
+  "descripcion": "Manifiesto de requisitos para proyectos Power BI con Claude Code. Fuente de verdad para el preflight, el hook guard-nube y el skill pbi-verificar-docs. Solo se modifica tras verificar contra la documentacion oficial (skill /pbi-verificar-docs).",
+
+  "politica": {
+    "verificacionEnLinea": true,
+    "revalidarHoras": 24,
+    "reverificarDocsDias": 30,
+    "nodeMayorMinimo": 22,
+    "pbiDesktopMinimoYYMM": "26.06",
+    "nubeAprobacionHorasPorDefecto": 2,
+    "nubeAprobacionHorasMax": 8,
+    "patronesNube": [
+      "(?i)(^|[\\s;&|(\"'])az(\\.cmd|\\.exe)?\\s+(?!(--version|version|--help|-h)\\b)",
+      "(?i)(^|[\\s;&|(\"'])fab(\\.exe)?\\s+(?!(--version|--help|-h)\\b)",
+      "(?i)\\b(Connect-PowerBIServiceAccount|Login-PowerBI(ServiceAccount)?|Invoke-PowerBIRestMethod|Connect-AzAccount)\\b",
+      "(?i)(api|app)\\.powerbi\\.com|(api|app)\\.fabric\\.microsoft\\.com|onelake\\.(dfs|blob)\\.fabric\\.microsoft\\.com|login\\.microsoftonline\\.com|analysis\\.windows\\.net|pbidedicated\\.windows\\.net|fabriciq\\.svc\\.cloud\\.microsoft|powerbi://|asazure://",
+      "(?i)powerbi-report-author\\b.*--host\\s+service",
+      "(?i)claude\\s+plugins?\\s+(install|i|enable)\\s+(fabric-skills|skills-for-fabric|fabric-authoring|fabric-consumption|fabric-operations)",
+      "(?i)claude\\s+mcp\\s+add\\b.*https?://",
+      "(?i)\\bsqlcmd\\b.*\\s-G\\b"
+    ],
+    "patronesNubeServidorMcp": "(?i)^mcp__(plugin_(fabric-skills|skills-for-fabric|fabric-authoring|fabric-consumption|fabric-operations)_|powerbi-authoring-remote)|fabriciq|sqlendpoint",
+    "patronesNubeEntradaMcp": "(?i)powerbi://|api\\.powerbi\\.com|fabric\\.microsoft\\.com|asazure://|connect_?to_?fabric|\"workspace(name|id)?\"\\s*:|deploy|serviceprincipal|xmla"
+  },
+
+  "formato": {
+    "trabajo": "PBIP con informe PBIR y modelo TMDL",
+    "conversionSoportada": "Solo Power BI Desktop: Archivo > Guardar como (FAQ oficial: no es programable)",
+    "pbirPorDefectoDesdeYYMM": "26.09",
+    "carpetaRespaldo": "_respaldo_pbix",
+    "rutaMaxRecomendada": 120,
+    "gitignore": [
+      "**/.pbi/localSettings.json",
+      "**/.pbi/cache.abf",
+      "_respaldo_pbix/",
+      "*.pbix"
+    ]
+  },
+
+  "confianza": {
+    "npmMantenedores": ["microsoft1es", "microsoft-oss-releases"],
+    "firmanteAuthenticode": "O=Microsoft Corporation",
+    "repositoriosOficiales": [
+      "github.com/microsoft/powerbi-modeling-mcp",
+      "github.com/microsoft/skills-for-fabric"
+    ]
+  },
+
+  "plugin": {
+    "id": "powerbi-authoring",
+    "marketplace": "fabric-collection",
+    "marketplaceRepo": "microsoft/skills-for-fabric",
+    "versionVerificada": "0.3.19",
+    "skillsEsperadas": ["semantic-model-authoring", "powerbi-report-cli"],
+    "mcpServidor": "powerbi-modeling-mcp",
+    "mcpPaquete": "@microsoft/powerbi-modeling-mcp",
+    "mcpTransporte": "stdio",
+    "pluginsNube": ["fabric-skills", "skills-for-fabric", "fabric-authoring", "fabric-consumption", "fabric-operations"]
+  },
+
+  "herramientas": [
+    {
+      "id": "modeling-mcp",
+      "nombre": "Power BI Modeling MCP",
+      "nombreOficial": "Power BI Authoring MCP server (despliegue local)",
+      "tipo": "MCP oficial",
+      "prioridad": "obligatorio",
+      "npm": "@microsoft/powerbi-modeling-mcp",
+      "repo": "github.com/microsoft/powerbi-modeling-mcp",
+      "versionVerificada": "1.0.0",
+      "nodeMinimo": "18",
+      "instalacion": "Lo registra el plugin powerbi-authoring: npx -y @microsoft/powerbi-modeling-mcp@latest --start"
+    },
+    {
+      "id": "plugin-powerbi-authoring",
+      "nombre": "powerbi-authoring",
+      "nombreOficial": "Plugin powerbi-authoring del marketplace Skills for Fabric (fabric-collection)",
+      "tipo": "Plugin oficial de Microsoft",
+      "prioridad": "obligatorio",
+      "repo": "github.com/microsoft/skills-for-fabric",
+      "versionVerificada": "0.3.19",
+      "instalacion": "claude plugin marketplace add microsoft/skills-for-fabric ; claude plugin install powerbi-authoring@fabric-collection --scope user",
+      "actualizacion": "claude plugin update powerbi-authoring@fabric-collection"
+    },
+    {
+      "id": "report-authoring-cli",
+      "nombre": "Power BI Report Authoring CLI",
+      "nombreOficial": "@microsoft/powerbi-report-authoring-cli (comando powerbi-report-author), vista previa publica",
+      "tipo": "Herramienta CLI",
+      "prioridad": "necesaria",
+      "npm": "@microsoft/powerbi-report-authoring-cli",
+      "bin": "powerbi-report-author",
+      "repo": "github.com/microsoft/skills-for-fabric",
+      "versionVerificada": "0.5.0",
+      "nodeMinimo": "20"
+    },
+    {
+      "id": "desktop-bridge-cli",
+      "nombre": "Power BI Desktop Bridge CLI",
+      "nombreOficial": "@microsoft/powerbi-desktop-bridge-cli (comando powerbi-desktop)",
+      "tipo": "Herramienta CLI",
+      "prioridad": "recomendada",
+      "npm": "@microsoft/powerbi-desktop-bridge-cli",
+      "bin": "powerbi-desktop",
+      "repo": "github.com/microsoft/skills-for-fabric",
+      "versionVerificada": "1.0.0",
+      "nodeMinimo": "20"
+    },
+    {
+      "id": "skill-semantic-model-authoring",
+      "nombre": "semantic-model-authoring",
+      "tipo": "Skill incluida en el plugin",
+      "prioridad": "incluida",
+      "skill": "semantic-model-authoring"
+    },
+    {
+      "id": "skill-powerbi-report-cli",
+      "nombre": "Power BI Report skill",
+      "nombreOficial": "powerbi-report-cli (unifica las antiguas report skills: planning, design, authoring, management)",
+      "tipo": "Skill incluida en el plugin",
+      "prioridad": "incluida",
+      "skill": "powerbi-report-cli"
+    }
+  ],
+
+  "fuentes": [
+    { "id": "learn-agentic-overview", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/agentic/power-bi-agentic-overview", "updatedAtVerificado": "2026-10-14T05:07:00Z" },
+    { "id": "learn-authoring-mcp", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/mcp/power-bi-authoring-mcp", "updatedAtVerificado": "2026-09-29T06:02:00Z" },
+    { "id": "learn-semantic-model-skill", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/agentic/semantic-model-authoring-skill-overview", "updatedAtVerificado": "2026-09-17T17:07:00Z" },
+    { "id": "learn-report-skill", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/agentic/power-bi-report-skill-overview", "updatedAtVerificado": "2026-10-02T05:07:00Z" },
+    { "id": "learn-desktop-bridge", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/agentic/power-bi-desktop-bridge-overview", "updatedAtVerificado": "2026-09-29T06:02:00Z" },
+    { "id": "learn-pbip-overview", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview", "updatedAtVerificado": "2026-09-29T06:02:00Z" },
+    { "id": "learn-pbip-report", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report", "updatedAtVerificado": "2026-09-29T06:02:00Z" },
+    { "id": "learn-pbip-dataset", "tipo": "learn", "url": "https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-dataset", "updatedAtVerificado": "2026-09-29T06:02:00Z" },
+    { "id": "github-plugin-json", "tipo": "github-plugin", "url": "https://raw.githubusercontent.com/microsoft/skills-for-fabric/main/plugins/powerbi-authoring/.claude-plugin/plugin.json" },
+    { "id": "github-marketplace-json", "tipo": "github-marketplace", "url": "https://raw.githubusercontent.com/microsoft/skills-for-fabric/main/.claude-plugin/marketplace.json" },
+    { "id": "github-report-skill", "tipo": "referencia", "url": "https://raw.githubusercontent.com/microsoft/skills-for-fabric/main/plugins/powerbi-authoring/skills/powerbi-report-cli/SKILL.md" },
+    { "id": "github-semantic-model-skill", "tipo": "referencia", "url": "https://raw.githubusercontent.com/microsoft/skills-for-fabric/main/plugins/powerbi-authoring/skills/semantic-model-authoring/SKILL.md" },
+    { "id": "github-mcp-readme", "tipo": "referencia", "url": "https://raw.githubusercontent.com/microsoft/powerbi-modeling-mcp/main/README.md" }
+  ]
+}

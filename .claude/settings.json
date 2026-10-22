@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "ask": [
+      "Bash(*pbi-nube.ps1*aprobar*)",
+      "PowerShell(*pbi-nube.ps1*aprobar*)",
+      "Bash(az login:*)",
+      "PowerShell(az login:*)",
+      "PowerShell(Connect-PowerBIServiceAccount:*)",
+      "PowerShell(Login-PowerBI:*)",
+      "PowerShell(Connect-AzAccount:*)",
+      "Bash(claude plugin install fabric-skills:*)",
+      "PowerShell(claude plugin install fabric-skills:*)",
+      "Bash(claude mcp add*api.fabric.microsoft.com*)",
+      "PowerShell(claude mcp add*api.fabric.microsoft.com*)",
+      "mcp__plugin_fabric-skills_powerbi-modeling-mcp",
+      "mcp__plugin_fabric-skills_FabricIQ",
+      "mcp__plugin_fabric-skills_fabric-sqlendpoint",
+      "mcp__powerbi-authoring-remote",
+      "mcp__plugin_powerbi-authoring_powerbi-modeling-mcp__accept_eula"
+    ],
+    "deny": [
+      "Edit(**/pbi/estado/nube-aprobada.json)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command '& (Join-Path $env:CLAUDE_PROJECT_DIR .claude/hooks/session-start.ps1)'",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command '& (Join-Path $env:CLAUDE_PROJECT_DIR .claude/hooks/guard-nube.ps1)'",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*(powerbi|[Ff]abric).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command '& (Join-Path $env:CLAUDE_PROJECT_DIR .claude/hooks/guard-nube.ps1)'",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
