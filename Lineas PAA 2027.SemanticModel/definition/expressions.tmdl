@@ -1,0 +1,4 @@
+/// Carpeta que contiene paa_lineas.csv (generado por etl/preparar_datos_paa.py). Cambiarla si el proyecto se mueve de carpeta. Debe terminar en barra invertida.
+expression 'Carpeta de datos' = "D:\ninchaustegui\Desktop\PWOERBI_REGLAS - copia (3)\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 09922b16-6668-41ad-81ad-98c0d447b647
+

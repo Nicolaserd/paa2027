@@ -1,0 +1,19 @@
+/// Líneas nuevas del Plan Anual de Adquisiciones (PAA) 2027 de la Universidad de Cundinamarca. Fuente: exportación del sistema PAA preparada con etl/preparar_datos_paa.py.
+model 'Lineas PAA 2027'
+	culture: es-CO
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table 'Líneas PAA'
+ref table Calendario
+
+ref cultureInfo es-CO
+

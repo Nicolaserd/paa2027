@@ -1,0 +1,14 @@
+# Entorno de Python
+.venv/
+__pycache__/
+
+# Datos de origen y derivados (informacion interna, fuera de git)
+data/*.xls
+data/*.xlsx
+data/*.csv
+
+# Power BI (regla pbi-05): cache con datos y ajustes locales
+**/.pbi/cache.abf
+**/.pbi/localSettings.json
+_respaldo_pbix/
+*.pbix

@@ -1,0 +1,627 @@
+cultureInfo es-CO
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "líneas_paa.líneas_paa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Líneas PAA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Líneas registradas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Líneas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Número de líneas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.valor_total_paa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Valor total PAA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Valor total": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Valor total de la necesidad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.dependencias_solicitantes": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Dependencias solicitantes"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Dependencias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Dependencias solicitantes": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.líneas_listas_para_comité": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "% líneas listas para comité"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.fuente_de_recursos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Fuente de recursos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fuente de recursos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.tipo_de_necesidad": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Tipo de necesidad"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tipo de necesidad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.del_valor_total": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "% del valor total"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "% del valor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "% del valor total": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.valor_contratación_de_personal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "% valor contratación de personal"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.valor_primer_trimestre": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "% valor primer trimestre"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.valor_top_5_dependencias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "% valor top 5 dependencias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Valor en 5 dependencias": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.duración_promedio_meses": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Duración promedio (meses)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.valor_máximo_de_una_línea": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Valor máximo de una línea"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Línea de mayor valor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.líneas_sin_unidad_de_contratación": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Líneas sin unidad de contratación"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Sin unidad de contratación": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.identificador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Identificador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Identificador": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.origen_de_la_inversión": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Origen de la inversión"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.descripción_de_la_necesidad": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Descripción de la necesidad"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Descripción de la necesidad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.solicitante": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Solicitante"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Nombre del solicitante": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Solicitante": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.mes_de_inicio_del_proceso": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Mes de inicio del proceso"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fecha estimada de inicio del proceso": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Mes de inicio del proceso": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.valor_promedio_por_línea": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Valor promedio por línea"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Valor promedio por línea": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.líneas_con_ajuste_solicitado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Líneas con ajuste solicitado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Con ajuste solicitado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.segmento_unspsc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Segmento UNSPSC"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Segmento UNSPSC": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.etapa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Etapa"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Etapa": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.unidad_de_contratación": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Unidad de contratación"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Unidad de contratación": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.rango_de_valor": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Rango de valor"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rango de valor de la línea": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.explicación_dependencias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación dependencias"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_líneas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación líneas"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_para_comité": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación para comité"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.líneas_para_comité": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Líneas para comité"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Líneas para comité": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "líneas_paa.explicación_valor_total": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación valor total"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_top_5_dependencias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación top 5 dependencias"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_línea_de_mayor_valor": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación línea de mayor valor"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_sin_unidad_de_contratación": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación sin unidad de contratación"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_ajuste_solicitado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación ajuste solicitado"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "líneas_paa.explicación_valor_promedio": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Líneas PAA",
+			          "ConceptualProperty": "Explicación valor promedio"
+			        }
+			      },
+			      "State": "Generated"
+			    }
+			  }
+			}
+		contentType: json
+

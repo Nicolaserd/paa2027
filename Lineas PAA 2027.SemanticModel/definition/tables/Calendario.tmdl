@@ -1,0 +1,87 @@
+/// Tabla de fechas (una fila por día, 2026-2028) para analizar la fecha estimada de contratación de las líneas.
+table Calendario
+	lineageTag: b3116e91-a32b-4d2b-a19d-0f15716321ba
+	dataCategory: Time
+
+	/// Día calendario.
+	column Fecha
+		dataType: dateTime
+		isUnique
+		formatString: dd/mm/yyyy
+		lineageTag: 126b9a6c-5399-4a19-a230-b3a7484ed99a
+		summarizeBy: none
+		sourceColumn: Fecha
+
+	/// Año calendario.
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: de20f752-b306-44df-b01a-52ba6835fb5c
+		summarizeBy: none
+		sourceColumn: Año
+
+	/// Número del mes (1-12); ordena la columna Mes.
+	column 'Número de mes'
+		dataType: int64
+		isHidden
+		lineageTag: b0e0a6d8-525e-4101-a72b-09f6c0bc2a7f
+		summarizeBy: none
+		sourceColumn: Número de mes
+
+	/// Nombre del mes en español.
+	column Mes
+		dataType: string
+		lineageTag: de8ed29d-f901-45fa-8be3-d12a5e962ea9
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: 'Número de mes'
+
+	/// Año y mes como número AAAAMM; ordena la columna Mes y año.
+	column 'Año mes'
+		dataType: int64
+		isHidden
+		lineageTag: 9b1d2ac0-c797-41e8-b4bc-db605eb3bf41
+		summarizeBy: none
+		sourceColumn: Año mes
+
+	/// Mes abreviado y año, por ejemplo Feb 2027.
+	column 'Mes y año'
+		dataType: string
+		lineageTag: 655722d9-77fd-4b2f-b469-292353d6d323
+		summarizeBy: none
+		sourceColumn: Mes y año
+		sortByColumn: 'Año mes'
+
+	/// Trimestre del año (T1-T4).
+	column Trimestre
+		dataType: string
+		lineageTag: 89093509-b597-4ddf-92d9-7d53b3340680
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+	/// Número de semana del año (semanas que inician el lunes).
+	column 'Semana del año'
+		dataType: int64
+		lineageTag: c4610464-44cc-4b73-8c16-0622b0baf10f
+		summarizeBy: none
+		sourceColumn: Semana del año
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Inicio = #date(2026, 1, 1),
+				    Fin = #date(2028, 12, 31),
+				    NombresMes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"},
+				    Fechas = List.Dates(Inicio, Duration.Days(Fin - Inicio) + 1, #duration(1, 0, 0, 0)),
+				    Tabla = Table.FromList(Fechas, Splitter.SplitByNothing(), type table [Fecha = date]),
+				    Anio = Table.AddColumn(Tabla, "Año", each Date.Year([Fecha]), Int64.Type),
+				    NumMes = Table.AddColumn(Anio, "Número de mes", each Date.Month([Fecha]), Int64.Type),
+				    Mes = Table.AddColumn(NumMes, "Mes", each NombresMes{[Número de mes] - 1}, type text),
+				    AnioMes = Table.AddColumn(Mes, "Año mes", each [Año] * 100 + [Número de mes], Int64.Type),
+				    MesAnio = Table.AddColumn(AnioMes, "Mes y año", each Text.Start([Mes], 3) & " " & Text.From([Año]), type text),
+				    Trimestre = Table.AddColumn(MesAnio, "Trimestre", each "T" & Text.From(Date.QuarterOfYear([Fecha])), type text),
+				    Semana = Table.AddColumn(Trimestre, "Semana del año", each Date.WeekOfYear([Fecha], Day.Monday), Int64.Type)
+				in
+				    Semana
+

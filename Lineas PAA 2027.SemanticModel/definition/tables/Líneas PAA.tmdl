@@ -1,0 +1,343 @@
+/// Una fila por línea (necesidad) nueva del PAA 2027. Origen: paa_lineas.csv generado desde el Excel 'LINEAS NUEVAS PAA 2027' por etl/preparar_datos_paa.py.
+table 'Líneas PAA'
+	lineageTag: 5b3e3947-fd14-4e05-ab21-71959380c07c
+
+	/// Número de líneas (necesidades) del PAA en el contexto actual.
+	measure 'Líneas PAA' = COUNTROWS ( 'Líneas PAA' )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 3e3e98dd-1bcb-49c5-8af5-5f9bc9da18a1
+
+	/// Suma del valor total de las necesidades, en pesos colombianos.
+	measure 'Valor total PAA' = SUM ( 'Líneas PAA'[Valor de la necesidad] )
+		formatString: $ #,##0
+		displayFolder: Indicadores
+		lineageTag: b745882d-5acd-4a6d-815e-9b3bb3d7bc54
+
+	/// Valor total dividido entre el número de líneas.
+	measure 'Valor promedio por línea' = DIVIDE ( [Valor total PAA], [Líneas PAA] )
+		formatString: $ #,##0
+		displayFolder: Indicadores
+		lineageTag: c20a5eaa-3dbb-48c7-8667-967b7e585945
+
+	/// Valor de la línea más costosa en el contexto actual.
+	measure 'Valor máximo de una línea' = MAX ( 'Líneas PAA'[Valor de la necesidad] )
+		formatString: $ #,##0
+		displayFolder: Indicadores
+		lineageTag: 724ffb79-2283-4398-9c48-994e695d8534
+
+	/// Número de dependencias distintas que solicitan líneas.
+	measure 'Dependencias solicitantes' = DISTINCTCOUNT ( 'Líneas PAA'[Solicitante] )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 439f1487-3773-4863-b13f-a9254b2486cc
+
+	/// Participación del elemento en el valor total de la selección visible (respeta segmentadores, no la fila del visual).
+	measure '% del valor total' =
+			DIVIDE (
+			    [Valor total PAA],
+			    CALCULATE ( [Valor total PAA], ALLSELECTED ( 'Líneas PAA' ) )
+			)
+		formatString: 0.0%
+		displayFolder: Indicadores
+		lineageTag: accc5e90-3fc4-4710-867d-f045e6241158
+
+	/// Líneas cuya tarea actual es la revisión de la necesidad por el Administrador PAA.
+	measure 'Líneas en revisión' =
+			COALESCE (
+			    CALCULATE ( [Líneas PAA], KEEPFILTERS ( 'Líneas PAA'[Orden de etapa] = 1 ) ),
+			    0
+			)
+		formatString: #,##0
+		displayFolder: Flujo de aprobación
+		lineageTag: 66dbdff0-7190-42d3-92b7-2a2b083ccab2
+
+	/// Líneas devueltas para ajuste por solicitud del Administrador PAA: requieren acción del solicitante.
+	measure 'Líneas con ajuste solicitado' =
+			COALESCE (
+			    CALCULATE ( [Líneas PAA], KEEPFILTERS ( 'Líneas PAA'[Orden de etapa] = 2 ) ),
+			    0
+			)
+		formatString: #,##0
+		displayFolder: Flujo de aprobación
+		lineageTag: d9d805e2-ecde-450f-a77c-f7bec9c6017c
+
+	/// Líneas en la tarea de presentación ante el Comité de Contratación (inversión).
+	measure 'Líneas para comité' =
+			COALESCE (
+			    CALCULATE ( [Líneas PAA], KEEPFILTERS ( 'Líneas PAA'[Orden de etapa] = 3 ) ),
+			    0
+			)
+		formatString: #,##0
+		displayFolder: Flujo de aprobación
+		lineageTag: 66cf7eb2-0127-4d77-bef1-71a423e10e17
+
+	/// Proporción de líneas que ya llegaron a la etapa de comité de contratación.
+	measure '% líneas listas para comité' = DIVIDE ( [Líneas para comité], [Líneas PAA] )
+		formatString: 0.0%
+		displayFolder: Flujo de aprobación
+		lineageTag: dfc15e1b-e984-4a14-8042-c1dc9191a9fa
+
+	/// Parte del valor que concentran las 5 dependencias con más valor solicitado en la selección (en empates pueden ser más de 5).
+	measure '% valor top 5 dependencias' =
+			VAR _top5 =
+			    TOPN ( 5, VALUES ( 'Líneas PAA'[Solicitante] ), [Valor total PAA] )
+			VAR _valorTop5 =
+			    CALCULATE ( [Valor total PAA], _top5 )
+			RETURN
+			    DIVIDE ( _valorTop5, [Valor total PAA] )
+		formatString: 0.0%
+		displayFolder: Concentración
+		lineageTag: aff6f18e-e647-4ba5-83a8-35044093227e
+
+	/// Líneas que llegaron sin unidad de contratación de referencia (calidad del dato).
+	measure 'Líneas sin unidad de contratación' =
+			COALESCE (
+			    CALCULATE ( [Líneas PAA], KEEPFILTERS ( 'Líneas PAA'[Unidad de contratación] = "Sin asignar" ) ),
+			    0
+			)
+		formatString: #,##0
+		displayFolder: Concentración
+		lineageTag: 0911abc6-6b39-4976-8b80-1d99d43bd96e
+
+	/// Color hexadecimal de cada etapa del flujo para formato condicional: azul En revisión, rojo Ajuste solicitado, verde Para comité.
+	measure 'Color de etapa' =
+			SWITCH (
+			    SELECTEDVALUE ( 'Líneas PAA'[Orden de etapa] ),
+			    1, "#2C7DA0",
+			    2, "#B3121A",
+			    3, "#00482B",
+			    "#4D4D4D"
+			)
+		isHidden
+		displayFolder: Formato
+		lineageTag: a4cf112a-f6dc-4735-9cc7-cb098c002af3
+
+	/// Código de la línea en el sistema PAA (PAAF27-n). Columna de referencia del Excel.
+	column Identificador
+		dataType: string
+		lineageTag: 812d9036-78c5-4032-be4c-07f4c4b27769
+		summarizeBy: none
+		sourceColumn: Identificador
+		sortByColumn: 'Número de línea'
+
+	/// Parte numérica del identificador; ordena PAAF27-2 antes que PAAF27-10.
+	column 'Número de línea'
+		dataType: int64
+		isHidden
+		lineageTag: e0de962a-6124-40e7-bb80-25129b1ec984
+		summarizeBy: none
+		sourceColumn: Número de línea
+
+	/// Tipo de necesidad tal como viene del sistema PAA. Columna de referencia del Excel.
+	column 'Tipo de necesidad'
+		dataType: string
+		lineageTag: 6b6ffb10-ca30-4637-a7fd-70c826554603
+		summarizeBy: none
+		sourceColumn: Tipo de necesidad
+
+	/// Agrupa el tipo de necesidad en Proyectos de inversión o Fondos de inversión.
+	column 'Origen de la inversión'
+		dataType: string
+		lineageTag: 23b517d2-1685-4c1a-b9eb-6825bc384c7e
+		summarizeBy: none
+		sourceColumn: Origen de la inversión
+
+	/// Sí cuando el tipo de necesidad es contratación de personal (proyectos o fondos de inversión).
+	column 'Es contratación de personal'
+		dataType: string
+		lineageTag: 8f1e39cf-b516-4393-9e41-b1df6d4fc21c
+		summarizeBy: none
+		sourceColumn: Es contratación de personal
+
+	/// Objeto de lo que se va a contratar. Columna de referencia del Excel.
+	column 'Descripción de la necesidad'
+		dataType: string
+		lineageTag: eb934989-c835-4449-acd0-b00723f1ad00
+		summarizeBy: none
+		sourceColumn: Descripción de la necesidad
+
+	/// Justificación de la necesidad a incluir en el PAA (texto largo, hasta ~3.000 caracteres).
+	column Justificación
+		dataType: string
+		lineageTag: 252a814f-2c43-4b5a-a19e-83454ab2db1b
+		summarizeBy: none
+		sourceColumn: Justificación
+
+	/// Uno o varios códigos del Clasificador de Bienes y Servicios de Naciones Unidas (UNSPSC), separados por punto y coma.
+	column 'Código UNSPSC'
+		dataType: string
+		lineageTag: bcc39487-598d-42b0-92b4-6fa3028f254d
+		summarizeBy: none
+		sourceColumn: Código UNSPSC
+
+	/// Segmento UNSPSC (dos primeros dígitos) del primer código de la línea.
+	column 'Segmento UNSPSC'
+		dataType: string
+		lineageTag: 8fe99eb5-359b-4e7f-91e4-7299bd8139e0
+		summarizeBy: none
+		sourceColumn: Segmento UNSPSC
+
+	/// Fecha estimada de inicio del proceso de contratación (columna F del Excel). Clave hacia Calendario.
+	column 'Fecha estimada de contratación'
+		dataType: dateTime
+		isHidden
+		formatString: dd/mm/yyyy
+		isAvailableInMdx: false
+		lineageTag: 48d49ff3-8e4f-4bbb-8053-476168db6831
+		summarizeBy: none
+		sourceColumn: Fecha estimada de contratación
+
+	/// Duración estimada del contrato en la unidad indicada (meses o días).
+	column Duración
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 0f87e03c-b863-451c-887e-89cbd29835af
+		summarizeBy: none
+		sourceColumn: Duración
+
+	/// Unidad de la duración estimada: Meses o Días.
+	column 'Unidad de duración'
+		dataType: string
+		lineageTag: 45140f6a-5369-430d-ac6d-5008bcaa4215
+		summarizeBy: none
+		sourceColumn: Unidad de duración
+
+	/// Duración normalizada a meses (días / 30). Hoy no la usa ninguna medida; queda disponible para análisis.
+	column 'Duración en meses'
+		dataType: decimal
+		isHidden
+		formatString: #,##0.0
+		isAvailableInMdx: false
+		lineageTag: bd88aeb2-98f2-4355-ac7f-5833b5fa97cf
+		summarizeBy: none
+		sourceColumn: Duración en meses
+
+	/// Fuente de los recursos; varias fuentes aparecen unidas con +.
+	column 'Fuente de recursos'
+		dataType: string
+		lineageTag: a38ceb9b-9931-476a-a73f-b69a8def39fa
+		summarizeBy: none
+		sourceColumn: Fuente de recursos
+
+	/// Valor total de la necesidad en pesos colombianos. Se agrega con la medida Valor total PAA.
+	column 'Valor de la necesidad'
+		dataType: int64
+		isHidden
+		formatString: $ #,##0
+		isAvailableInMdx: false
+		lineageTag: 995bd8bc-422f-47d4-9d0f-0c53abb8fba0
+		summarizeBy: none
+		sourceColumn: Valor de la necesidad
+
+	/// Dependencia que solicita la necesidad (Nombre del solicitante). Columna de referencia del Excel.
+	column Solicitante
+		dataType: string
+		lineageTag: 5370d8cc-9700-4a08-867e-81b239b572ec
+		summarizeBy: none
+		sourceColumn: Solicitante
+
+	/// Mes estimado de inicio del proceso (columna L del Excel, columna de referencia). Puede diferir del mes de la fecha estimada de contratación.
+	column 'Mes de inicio del proceso'
+		dataType: string
+		lineageTag: d07e07f2-d21c-495c-af6b-35f237a0f3ef
+		summarizeBy: none
+		sourceColumn: Mes de inicio del proceso
+		sortByColumn: 'Número de mes del proceso'
+
+	/// Número del mes de inicio del proceso (1-12); ordena el mes cronológicamente.
+	column 'Número de mes del proceso'
+		dataType: int64
+		isHidden
+		lineageTag: 0e02f604-1322-4a0a-840a-40fd174363a0
+		summarizeBy: none
+		sourceColumn: Número de mes del proceso
+
+	/// Estado del registro en el sistema PAA.
+	column Estado
+		dataType: string
+		lineageTag: 9bef4463-e243-4983-8a16-b42bf118d6f1
+		summarizeBy: none
+		sourceColumn: Estado
+
+	/// Modalidad de selección del contratista.
+	column 'Modalidad de selección'
+		dataType: string
+		lineageTag: ce0b1b79-939c-4033-ac2e-f9d799bbaa43
+		summarizeBy: none
+		sourceColumn: Modalidad de selección
+
+	/// Sí si la necesidad requiere vigencias futuras.
+	column 'Requiere vigencias futuras'
+		dataType: string
+		lineageTag: 2a3b0917-ba61-4add-9775-53fa10e0856c
+		summarizeBy: none
+		sourceColumn: Requiere vigencias futuras
+
+	/// Unidad de contratación de referencia; 'Sin asignar' cuando viene vacía.
+	column 'Unidad de contratación'
+		dataType: string
+		lineageTag: bd50df51-b3f2-40ca-ab68-aac0ee9dd3fa
+		summarizeBy: none
+		sourceColumn: Unidad de contratación
+
+	/// Etapa del flujo de aprobación derivada de la tarea actual: En revisión, Ajuste solicitado o Para comité de contratación.
+	column Etapa
+		dataType: string
+		lineageTag: 70974f81-b41c-4990-a04b-27b930720e2b
+		summarizeBy: none
+		sourceColumn: Etapa
+		sortByColumn: 'Orden de etapa'
+
+	/// Orden de la etapa en el flujo (1 revisión, 2 ajuste, 3 comité).
+	column 'Orden de etapa'
+		dataType: int64
+		isHidden
+		lineageTag: 68b8615c-d8f7-4bad-b7c7-d8984f52317c
+		summarizeBy: none
+		sourceColumn: Orden de etapa
+
+	/// Nombre completo de la tarea en la que está la línea en el sistema PAA.
+	column 'Tarea actual'
+		dataType: string
+		lineageTag: 52eb739b-414f-4a77-9345-0f9921c893e0
+		summarizeBy: none
+		sourceColumn: Tarea actual
+
+	/// Orden del rango de valor (1 = menos de 10 millones ... 6 = más de 1.000 millones).
+	column 'Orden de rango de valor'
+		dataType: int64
+		isHidden
+		lineageTag: 4e8f2ac0-36d3-415a-8ac9-070c941161a8
+		summarizeBy: none
+		sourceColumn: Orden de rango de valor
+
+	/// Rango del valor total de la línea en pesos: menos de 10 millones, 10 a 50, 50 a 100, 100 a 500, 500 a 1.000 y más de 1.000 millones.
+	column 'Rango de valor'
+		dataType: string
+		lineageTag: b007d36a-5202-4e5a-89f5-21a46d7cd693
+		summarizeBy: none
+		sourceColumn: Rango de valor
+		sortByColumn: 'Orden de rango de valor'
+
+	partition 'Líneas PAA' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(#"Carpeta de datos" & "paa_lineas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {
+				        {"Identificador", type text}, {"Número de línea", Int64.Type}, {"Tipo de necesidad", type text},
+				        {"Origen de la inversión", type text}, {"Es contratación de personal", type text},
+				        {"Descripción de la necesidad", type text}, {"Justificación", type text}, {"Código UNSPSC", type text},
+				        {"Segmento UNSPSC", type text}, {"Fecha estimada de contratación", type date}, {"Duración", Int64.Type},
+				        {"Unidad de duración", type text}, {"Duración en meses", Currency.Type}, {"Fuente de recursos", type text},
+				        {"Valor de la necesidad", Int64.Type}, {"Solicitante", type text}, {"Mes de inicio del proceso", type text},
+				        {"Número de mes del proceso", Int64.Type}, {"Estado", type text}, {"Modalidad de selección", type text},
+				        {"Requiere vigencias futuras", type text}, {"Unidad de contratación", type text}, {"Etapa", type text},
+				        {"Orden de etapa", Int64.Type}, {"Tarea actual", type text},
+				        {"Rango de valor", type text}, {"Orden de rango de valor", Int64.Type}
+				    }, "en-US")
+				in
+				    Tipos
+

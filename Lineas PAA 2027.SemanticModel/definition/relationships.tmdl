@@ -1,0 +1,4 @@
+relationship 'Líneas PAA_Fecha estimada de contratación_Calendario_Fecha'
+	fromColumn: 'Líneas PAA'.'Fecha estimada de contratación'
+	toColumn: Calendario.Fecha
+

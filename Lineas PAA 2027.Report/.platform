@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Lineas PAA 2027"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "23641d2d-3373-4e07-a806-a9dc6cf6252e"
+  }
+}
