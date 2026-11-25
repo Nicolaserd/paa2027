@@ -3,10 +3,10 @@
   "name": "9eab8ab51ab8c82cb29d",
   "position": {
     "x": 64,
-    "y": 632,
+    "y": 624,
     "z": 10000,
     "height": 84,
-    "width": 246,
+    "width": 196,
     "tabOrder": 10000
   },
   "visual": {
@@ -312,7 +312,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Número de líneas: Contratación de personal - Proyectos de inversión'"
+                  "Value": "'Número de líneas: Total de líneas'"
                 }
               }
             }
@@ -320,63 +320,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "Filterf6037f89efd59f4bef92fed2",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Líneas PAA"
-              }
-            },
-            "Property": "Tipo de necesidad"
-          }
-        },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "l",
-              "Entity": "Líneas PAA",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "l"
-                          }
-                        },
-                        "Property": "Tipo de necesidad"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Contratación de personal - Proyectos de inversión'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      }
-    ]
   }
 }

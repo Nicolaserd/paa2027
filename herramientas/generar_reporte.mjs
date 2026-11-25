@@ -362,10 +362,10 @@ const TIPOS_NECESIDAD = [
   "Fondos de Inversión-Contratación de Personal",
 ];
 function conteos(pageKey, key, area, items, oscuro = false) {
-  const gap = 32;
+  const gap = area.gap ?? 32;
   const n = items.length;
   const cw = Math.floor((area.w - gap * (n - 1)) / n);
-  const hNombre = 40;
+  const hNombre = area.hNombre ?? 40;
   const hNum = oscuro ? 84 : 72;
   const tinta = oscuro ? C.blanco : C.verde;
   const etiqueta = oscuro ? C.salvia : C.textoSuave;
@@ -451,9 +451,12 @@ texto("portada", "page_title", { x: 64, y: 280, w: 1080, h: 144 }, "Líneas del 
 barraAcento("portada", "acento", { x: 64, y: 432, w: 136, h: 8 }, C.oliva);
 texto("portada", "subtitle", { x: 64, y: 456, w: 1060, h: 72 }, "Necesidades nuevas registradas por las dependencias de la Universidad de Cundinamarca: qué se pide, quién lo pide, cuánto vale y en qué etapa va.", { fontFamily: "Segoe UI", fontSize: "20px", color: "#D7E6DD" });
 // Portada: solo el conteo de líneas por "Tipo de Necesidad" (columna C del Excel), una celda por tipo.
-texto("portada", "titulo_conteo", { x: 64, y: 552, w: 1080, h: 32 }, "Líneas por tipo de necesidad",
+texto("portada", "titulo_conteo", { x: 64, y: 536, w: 1080, h: 32 }, "Líneas por tipo de necesidad",
   { fontFamily: "Segoe UI Semibold", fontSize: "16px", color: C.salvia });
-conteos("portada", "conteo", { x: 64, y: 592, w: 1080 }, TIPOS_NECESIDAD.map((t) => ({ nombre: t, tipo: t })), true);
+conteos("portada", "conteo", { x: 64, y: 568, w: 1080, gap: 24, hNombre: 56 }, [
+  { nombre: "Total de líneas" },
+  ...TIPOS_NECESIDAD.map((t) => ({ nombre: t, tipo: t })),
+], true);
 boton("portada", "btn_explorar", { x: 64, y: 736, w: 260, h: 56 }, "Explorar el tablero", "PageNavigation", "primario", { navigationSection: str(P.tablero.id), tooltip: str("Ir al tablero de líneas del PAA") }, "rightArrow");
 texto("portada", "source_note", { x: 64, y: 1000, w: 1080, h: 40 }, "Fuente: LINEAS NUEVAS PAA 2027 (exportación del sistema PAA, corte 25/11/2026). Valores en pesos colombianos.", { fontFamily: "Segoe UI", fontSize: "13px", color: "#A9C4B6" });
 

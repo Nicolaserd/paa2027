@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "d8fa282d5923786defab",
   "position": {
-    "x": 342,
-    "y": 632,
+    "x": 284,
+    "y": 624,
     "z": 12000,
     "height": 84,
-    "width": 246,
+    "width": 196,
     "tabOrder": 12000
   },
   "visual": {
@@ -312,7 +312,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Número de líneas: Proyecto de Inversión'"
+                  "Value": "'Número de líneas: Contratación de personal - Proyectos de inversión'"
                 }
               }
             }
@@ -365,7 +365,7 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'Proyecto de Inversión'"
+                          "Value": "'Contratación de personal - Proyectos de inversión'"
                         }
                       }
                     ]

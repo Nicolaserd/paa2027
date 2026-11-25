@@ -74,19 +74,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Dependencias solicitantes"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Dependencias solicitantes": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.líneas_listas_para_comité": {
 			      "Definition": {
@@ -104,19 +92,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Fuente de recursos"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Fuente de recursos": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.tipo_de_necesidad": {
 			      "Definition": {
@@ -195,19 +171,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "% valor top 5 dependencias"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Valor en 5 dependencias": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.duración_promedio_meses": {
 			      "Definition": {
@@ -225,19 +189,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Valor máximo de una línea"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Línea de mayor valor": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.líneas_sin_unidad_de_contratación": {
 			      "Definition": {
@@ -246,19 +198,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Líneas sin unidad de contratación"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Sin unidad de contratación": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.identificador": {
 			      "Definition": {
@@ -380,19 +320,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Valor promedio por línea"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Valor promedio por línea": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.líneas_con_ajuste_solicitado": {
 			      "Definition": {
@@ -401,19 +329,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Líneas con ajuste solicitado"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Con ajuste solicitado": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.segmento_unspsc": {
 			      "Definition": {
@@ -533,19 +449,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Líneas para comité"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Líneas para comité": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.explicación_valor_total": {
 			      "Definition": {

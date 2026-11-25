@@ -3,10 +3,10 @@
   "name": "9fb4cc267c54f3f19ceb",
   "position": {
     "x": 80,
-    "y": 592,
+    "y": 568,
     "z": 9000,
-    "height": 40,
-    "width": 230,
+    "height": 56,
+    "width": 180,
     "tabOrder": 9000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Contratación de personal - Proyectos de inversión",
+                    "value": "Total de líneas",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "15px",

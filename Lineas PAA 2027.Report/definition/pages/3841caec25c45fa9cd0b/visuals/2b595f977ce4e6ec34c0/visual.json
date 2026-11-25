@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "2b595f977ce4e6ec34c0",
   "position": {
-    "x": 620,
-    "y": 632,
+    "x": 504,
+    "y": 624,
     "z": 15000,
     "height": 84,
-    "width": 246,
+    "width": 196,
     "tabOrder": 15000
   },
   "visual": {
@@ -312,7 +312,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Número de líneas: Fondos Inversión'"
+                  "Value": "'Número de líneas: Proyecto de Inversión'"
                 }
               }
             }
@@ -365,7 +365,7 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'Fondos Inversión'"
+                          "Value": "'Proyecto de Inversión'"
                         }
                       }
                     ]

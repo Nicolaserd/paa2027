@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "4c7a36a74a9f07262a43",
   "position": {
-    "x": 636,
-    "y": 592,
+    "x": 520,
+    "y": 568,
     "z": 14000,
-    "height": 40,
-    "width": 230,
+    "height": 56,
+    "width": 180,
     "tabOrder": 14000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fondos Inversión",
+                    "value": "Proyecto de Inversión",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "15px",
