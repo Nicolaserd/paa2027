@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "328b77c72bc804abadea",
   "position": {
     "x": 1296,
@@ -28,26 +28,8 @@
               },
               "queryRef": "Líneas PAA.Tipo de necesidad",
               "nativeQueryRef": "Tipo de necesidad",
+              "active": true,
               "displayName": "Tipo de necesidad"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Líneas PAA"
-                    }
-                  },
-                  "Property": "Valor total PAA"
-                }
-              },
-              "queryRef": "Líneas PAA.Valor total PAA",
-              "nativeQueryRef": "Valor total PAA",
-              "displayName": "Valor total"
             }
           ]
         },
@@ -84,6 +66,25 @@
               "displayName": "% del valor"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Líneas PAA"
+                    }
+                  },
+                  "Property": "Valor total PAA"
+                }
+              },
+              "queryRef": "Líneas PAA.Valor total PAA",
+              "nativeQueryRef": "Valor total PAA",
+              "displayName": "Valor total"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -101,8 +102,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

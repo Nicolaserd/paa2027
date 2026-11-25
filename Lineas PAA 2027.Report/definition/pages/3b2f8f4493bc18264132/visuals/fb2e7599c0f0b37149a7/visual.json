@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "fb2e7599c0f0b37149a7",
   "position": {
-    "x": 1176,
-    "y": 6,
+    "x": 1146.46533973919,
+    "y": 6.5888812628689086,
     "z": 8000,
-    "height": 76,
-    "width": 184,
+    "height": 75.113246396705549,
+    "width": 342.62182566918324,
     "tabOrder": 8000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Líneas PAA.Solicitante",
-              "nativeQueryRef": "Solicitante"
+              "nativeQueryRef": "Solicitante",
+              "active": true
             }
           ]
         }

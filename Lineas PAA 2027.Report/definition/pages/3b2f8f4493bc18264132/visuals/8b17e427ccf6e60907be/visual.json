@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "8b17e427ccf6e60907be",
   "position": {
     "x": 1296,
@@ -28,26 +28,8 @@
               },
               "queryRef": "Líneas PAA.Etapa",
               "nativeQueryRef": "Etapa",
+              "active": true,
               "displayName": "Etapa"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Líneas PAA"
-                    }
-                  },
-                  "Property": "Líneas PAA"
-                }
-              },
-              "queryRef": "Líneas PAA.Líneas PAA",
-              "nativeQueryRef": "Líneas PAA",
-              "displayName": "Líneas"
             }
           ]
         },
@@ -69,6 +51,25 @@
               "displayName": "Valor total"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Líneas PAA"
+                    }
+                  },
+                  "Property": "Líneas PAA"
+                }
+              },
+              "queryRef": "Líneas PAA.Líneas PAA",
+              "nativeQueryRef": "Líneas PAA",
+              "displayName": "Líneas"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -86,8 +87,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

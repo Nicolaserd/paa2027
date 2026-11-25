@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "d0656f81c3f8a573b813",
   "position": {
-    "x": 1376,
-    "y": 6,
+    "x": 1508.85380919698,
+    "y": 6.5888812628689086,
     "z": 9000,
     "height": 76,
     "width": 176,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Líneas PAA.Tipo de necesidad",
-              "nativeQueryRef": "Tipo de necesidad"
+              "nativeQueryRef": "Tipo de necesidad",
+              "active": true
             }
           ]
         }

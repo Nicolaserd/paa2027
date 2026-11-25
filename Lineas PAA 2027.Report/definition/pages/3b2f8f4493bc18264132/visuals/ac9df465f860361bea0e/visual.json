@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "ac9df465f860361bea0e",
   "position": {
     "x": 968,
@@ -28,26 +28,8 @@
               },
               "queryRef": "Líneas PAA.Unidad de contratación",
               "nativeQueryRef": "Unidad de contratación",
+              "active": true,
               "displayName": "Unidad de contratación"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Líneas PAA"
-                    }
-                  },
-                  "Property": "Valor total PAA"
-                }
-              },
-              "queryRef": "Líneas PAA.Valor total PAA",
-              "nativeQueryRef": "Valor total PAA",
-              "displayName": "Valor total"
             }
           ]
         },
@@ -69,6 +51,25 @@
               "displayName": "Líneas"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Líneas PAA"
+                    }
+                  },
+                  "Property": "Valor total PAA"
+                }
+              },
+              "queryRef": "Líneas PAA.Valor total PAA",
+              "nativeQueryRef": "Valor total PAA",
+              "displayName": "Valor total"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -86,8 +87,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
