@@ -81,7 +81,7 @@ const vcoPanel = (titulo, alt, subtitulo) => {
 // ---------- definición de páginas ----------
 // Portada + una sola página de tablero (tabla, KPIs, gráficas, estadísticas y filtros).
 // El tablero mide 1920 x ALTO_TABLERO y se muestra "Ajustar al ancho" con desplazamiento vertical.
-const ALTO_TABLERO = 2072;
+const ALTO_TABLERO = 1968;
 const PAGINAS = {
   portada: { id: h("pagina-portada"), nombre: "Portada" },
   tablero: { id: h("pagina-tablero"), nombre: "Tablero PAA 2027" },
@@ -345,9 +345,6 @@ function boton(pageKey, key, pos, texto, accion, estilo, extraLink = {}, icono =
   }, { howCreated: "InsertVisualButton" });
 }
 
-// Franja de indicadores de estilo editorial: sin recuadros ni barras de acento.
-// Cada indicador = etiqueta pequeña + cifra grande + una frase (medida de texto) que explica
-// de dónde sale, separados por líneas verticales finas.
 function texto(pageKey, key, pos, valor, estilo, alineacion = "left") {
   return visual(pageKey, key, "textbox", pos, {
     objects: { general: [props({ paragraphs: [{ textRuns: [{ value: valor, textStyle: estilo }], horizontalTextAlignment: alineacion }] })] },
@@ -355,52 +352,63 @@ function texto(pageKey, key, pos, valor, estilo, alineacion = "left") {
   });
 }
 
-function indicadores(pageKey, key, area, items, oscuro = false) {
+// Conteos de líneas por "Tipo de Necesidad" (columna C del Excel) con estilo editorial:
+// nombre del tipo en un cuadro de texto (ajusta en dos líneas), número grande debajo y "líneas"
+// como etiqueta, separados por líneas verticales finas. Un item sin "tipo" muestra el total.
+const TIPOS_NECESIDAD = [
+  "Contratación de personal - Proyectos de inversión",
+  "Proyecto de Inversión",
+  "Fondos Inversión",
+  "Fondos de Inversión-Contratación de Personal",
+];
+function conteos(pageKey, key, area, items, oscuro = false) {
   const gap = 32;
   const n = items.length;
   const cw = Math.floor((area.w - gap * (n - 1)) / n);
+  const hNombre = 40;
   const hNum = oscuro ? 84 : 72;
-  const hTxt = area.hTxt ?? 48;
   const tinta = oscuro ? C.blanco : C.verde;
   const etiqueta = oscuro ? C.salvia : C.textoSuave;
-  const frase = oscuro ? "#C9DCD1" : C.textoSuave;
-  const sinCaja = (alt) => ({
-    background: [props({ show: bool(false) })],
-    border: [props({ show: bool(false) })],
-    padding: [props({ top: num(0), bottom: num(0), left: num(0), right: num(0) })],
-    title: [props({ show: bool(false) })],
-    general: [props({ altText: str(alt) })],
-  });
-  const comunes = {
-    outline: [props({ show: bool(false) }, id("default"))],
-    accentBar: [props({ show: bool(false) }, id("default"))],
-    fillCustom: [props({ transparency: num(100) }, id("default"))],
-    padding: [props({ paddingUniform: num(0) }, id("default"))],
-    layout: [props({ paddingUniform: num(0) }, id("default"))],
-    cardCalloutArea: [props({ show: bool(false), paddingUniform: int(0) })],
-  };
   items.forEach((it, i) => {
     const x = area.x + i * (cw + gap);
-    visual(pageKey, `${key}_cifra_${i}`, "cardVisual", { x, y: area.y, w: cw, h: hNum }, {
-      query: { queryState: { Data: { projections: [pr(fMea(T, it.medida), it.etiqueta)] } } },
-      objects: {
-        ...comunes,
-        value: [props({
-          fontSize: num(oscuro ? 24 : 26), fontColor: col(tinta), bold: bool(true), fontFamily: str("Segoe UI Semibold"),
-          horizontalAlignment: str("left"),
-          labelDisplayUnits: lit(it.millones ? "1000000D" : "0D"), ...(it.millones ? { labelPrecision: int(0) } : {}),
-        }, id("default"))],
-        label: [props({
-          show: bool(true), position: str("aboveValue"), fontSize: num(oscuro ? 12 : 11), fontColor: col(etiqueta),
-          bold: bool(true), horizontalAlignment: str("left"),
-        }, id("default"))],
+    texto(pageKey, `${key}_nombre_${i}`, { x: x + 16, y: area.y, w: cw - 16, h: hNombre }, it.nombre,
+      { fontFamily: "Segoe UI Semibold", fontSize: oscuro ? "15px" : "14px", color: etiqueta });
+    const filtro = it.tipo ? { filterConfig: { filters: [{
+      name: "Filter" + h(`${pageKey}/${key}/${i}`, 24),
+      field: fCol(T, "Tipo de necesidad"),
+      type: "Categorical",
+      filter: {
+        Version: 2,
+        From: [{ Name: "l", Entity: T, Type: 0 }],
+        Where: [{ Condition: { In: {
+          Expressions: [{ Column: { Expression: { SourceRef: { Source: "l" } }, Property: "Tipo de necesidad" } }],
+          Values: [[{ Literal: { Value: `'${it.tipo.replace(/'/g, "''")}'` } }]],
+        } } }],
       },
-      visualContainerObjects: sinCaja(`${it.etiqueta}: indicador`),
-    });
-    texto(pageKey, `${key}_frase_${i}`, { x: x + 16, y: area.y + hNum + 4, w: cw - 16, h: hTxt - 4 }, it.explicacion,
-      { fontFamily: "Segoe UI", fontSize: oscuro ? "14px" : "13px", color: frase });
+      howCreated: "User",
+    }] } } : {};
+    visual(pageKey, `${key}_numero_${i}`, "cardVisual", { x, y: area.y + hNombre, w: cw, h: hNum }, {
+      query: { queryState: { Data: { projections: [pr(fMea(T, "Líneas PAA"), "líneas")] } } },
+      objects: {
+        value: [props({ fontSize: num(oscuro ? 34 : 28), fontColor: col(tinta), bold: bool(true), fontFamily: str("Segoe UI Semibold"), horizontalAlignment: str("left") }, id("default"))],
+        label: [props({ show: bool(true), position: str("belowValue"), fontSize: num(11), fontColor: col(etiqueta), horizontalAlignment: str("left") }, id("default"))],
+        outline: [props({ show: bool(false) }, id("default"))],
+        accentBar: [props({ show: bool(false) }, id("default"))],
+        fillCustom: [props({ transparency: num(100) }, id("default"))],
+        padding: [props({ paddingUniform: num(0) }, id("default"))],
+        layout: [props({ paddingUniform: num(0) }, id("default"))],
+        cardCalloutArea: [props({ show: bool(false), paddingUniform: int(0) })],
+      },
+      visualContainerObjects: {
+        background: [props({ show: bool(false) })],
+        border: [props({ show: bool(false) })],
+        padding: [props({ top: num(0), bottom: num(0), left: num(0), right: num(0) })],
+        title: [props({ show: bool(false) })],
+        general: [props({ altText: str(`Número de líneas: ${it.nombre}`) })],
+      },
+    }, filtro);
     if (i > 0) {
-      visual(pageKey, `${key}_division_${i}`, "shape", { x: x - gap / 2, y: area.y + 4, w: 1, h: hNum + hTxt - 8 }, {
+      visual(pageKey, `${key}_division_${i}`, "shape", { x: x - gap / 2, y: area.y + 4, w: 1, h: hNombre + hNum - 8 }, {
         objects: {
           shape: [props({ tileShape: str("rectangle") })],
           fill: [props({ fillColor: col(oscuro ? C.blanco : "#C3CEC8"), transparency: num(oscuro ? 70 : 0) }, id("default"))],
@@ -442,12 +450,10 @@ texto("portada", "overline", { x: 64, y: 248, w: 1040, h: 40 }, "PLAN ANUAL DE A
 texto("portada", "page_title", { x: 64, y: 280, w: 1080, h: 144 }, "Líneas del PAA 2027", { fontFamily: "Segoe UI Black", fontSize: "88px", color: C.blanco });
 barraAcento("portada", "acento", { x: 64, y: 432, w: 136, h: 8 }, C.oliva);
 texto("portada", "subtitle", { x: 64, y: 456, w: 1060, h: 72 }, "Necesidades nuevas registradas por las dependencias de la Universidad de Cundinamarca: qué se pide, quién lo pide, cuánto vale y en qué etapa va.", { fontFamily: "Segoe UI", fontSize: "20px", color: "#D7E6DD" });
-indicadores("portada", "cifras", { x: 64, y: 560, w: 1080, hTxt: 64 }, [
-  { etiqueta: "Líneas registradas", medida: "Líneas PAA", explicacion: "Necesidades nuevas del archivo PAA. Cada fila del Excel es una línea." },
-  { etiqueta: "Valor total", medida: "Valor total PAA", explicacion: "Suma de la columna «Valor Total de la Necesidad».", millones: true },
-  { etiqueta: "Dependencias", medida: "Dependencias solicitantes", explicacion: "Dependencias distintas que solicitan líneas." },
-  { etiqueta: "Líneas para comité", medida: "Líneas para comité", explicacion: "Ya están en la tarea «Presentación ante el Comité de Contratación»." },
-], true);
+// Portada: solo el conteo de líneas por "Tipo de Necesidad" (columna C del Excel), una celda por tipo.
+texto("portada", "titulo_conteo", { x: 64, y: 552, w: 1080, h: 32 }, "Líneas por tipo de necesidad",
+  { fontFamily: "Segoe UI Semibold", fontSize: "16px", color: C.salvia });
+conteos("portada", "conteo", { x: 64, y: 592, w: 1080 }, TIPOS_NECESIDAD.map((t) => ({ nombre: t, tipo: t })), true);
 boton("portada", "btn_explorar", { x: 64, y: 736, w: 260, h: 56 }, "Explorar el tablero", "PageNavigation", "primario", { navigationSection: str(P.tablero.id), tooltip: str("Ir al tablero de líneas del PAA") }, "rightArrow");
 texto("portada", "source_note", { x: 64, y: 1000, w: 1080, h: 40 }, "Fuente: LINEAS NUEVAS PAA 2027 (exportación del sistema PAA, corte 25/11/2026). Valores en pesos colombianos.", { fontFamily: "Segoe UI", fontSize: "13px", color: "#A9C4B6" });
 
@@ -461,13 +467,9 @@ slicer("tablero", "slicer_tipo", "Tipo de necesidad", "Tipo de necesidad", 1376,
 slicer("tablero", "slicer_etapa", "Etapa", "Etapa", 1568, 128);
 boton("tablero", "btn_limpiar", { x: 1712, y: 20, w: 176, h: 48 }, "Limpiar filtros", "ClearAllSlicers", "claro", { tooltip: str("Quitar todos los filtros de la página") }, "clearAllSlicers");
 
-indicadores("tablero", "resumen", { x: 32, y: 112, w: 1856, hTxt: 48 }, [
-  { etiqueta: "Líneas", medida: "Líneas PAA", explicacion: "Necesidades nuevas del archivo PAA. Cada fila del Excel es una línea." },
-  { etiqueta: "Valor total", medida: "Valor total PAA", explicacion: "Suma de la columna «Valor Total de la Necesidad» de las líneas que se ven.", millones: true },
-  { etiqueta: "Valor promedio por línea", medida: "Valor promedio por línea", explicacion: "Valor total dividido entre el número de líneas.", millones: true },
-  { etiqueta: "Dependencias solicitantes", medida: "Dependencias solicitantes", explicacion: "Dependencias distintas en la columna «Nombre del solicitante»." },
-  { etiqueta: "Líneas para comité", medida: "Líneas para comité", explicacion: "Líneas en la tarea «Presentación ante el Comité de Contratación»." },
-  { etiqueta: "Con ajuste solicitado", medida: "Líneas con ajuste solicitado", explicacion: "Líneas devueltas por el Administrador del PAA para que la dependencia las corrija." },
+conteos("tablero", "conteo", { x: 32, y: 108, w: 1856 }, [
+  { nombre: "Total de líneas" },
+  ...TIPOS_NECESIDAD.map((t) => ({ nombre: t, tipo: t })),
 ]);
 
 // Las 6 columnas con encabezado coloreado en el Excel, en su orden original (A, C, E, J, K, L).
@@ -552,11 +554,6 @@ visual("tablero", "chart_tipo", "barChart", { x: 1296, y: 760, w: 592, h: 288 },
 // Bloque 2 (al desplazarse): estadísticas y gráficas.
 texto("tablero", "titulo_estadisticas", { x: 32, y: 1072, w: 1400, h: 36 }, "Estadísticas del PAA 2027 · ¿dónde se concentra el valor?", { fontFamily: "Segoe UI Semibold", fontSize: "22px", color: C.verde });
 barraAcento("tablero", "acento_estadisticas", { x: 32, y: 1112, w: 120, h: 4 }, C.oliva);
-indicadores("tablero", "concentracion", { x: 32, y: 1132, w: 1856, hTxt: 48 }, [
-  { etiqueta: "Valor en 5 dependencias", medida: "% valor top 5 dependencias", explicacion: "Parte del valor total que piden las 5 dependencias con más valor solicitado." },
-  { etiqueta: "Línea de mayor valor", medida: "Valor máximo de una línea", explicacion: "Valor de la línea más costosa. Es la primera fila de la tabla, que está ordenada por valor.", millones: true },
-  { etiqueta: "Sin unidad de contratación", medida: "Líneas sin unidad de contratación", explicacion: "Líneas con la columna «Unidad de Contratación (Referencia)» vacía: aún no dicen quién hará la contratación." },
-]);
 
 const topN = {
   name: "Filter" + h("topn-dependencias", 24),
@@ -577,7 +574,7 @@ const topN = {
     Where: [{ Condition: { In: { Expressions: [{ Column: { Expression: { SourceRef: { Source: "l" } }, Property: "Solicitante" } }], Table: { SourceRef: { Source: "subquery" } } } } }],
   },
 };
-visual("tablero", "chart_dependencias", "barChart", { x: 32, y: 1272, w: 600, h: 376 }, {
+visual("tablero", "chart_dependencias", "barChart", { x: 32, y: 1136, w: 920, h: 392 }, {
   query: {
     queryState: {
       Category: { projections: [pr(fCol(T, "Solicitante"), "Solicitante")] },
@@ -589,7 +586,7 @@ visual("tablero", "chart_dependencias", "barChart", { x: 32, y: 1272, w: 600, h:
   objects: { dataPoint: [props({ defaultColor: col(C.oliva) })], labels: etiquetasMillones(), categoryAxis: [props({ showAxisTitle: bool(true), titleText: str("Dependencia solicitante"), titleFontSize: num(10), titleColor: col(C.textoSuave), fontSize: num(10) })] },
   visualContainerObjects: vcoPanel("Top 10 dependencias por valor solicitado", "Barras doradas con las 10 dependencias que más valor solicitan", "Millones de pesos"),
 }, { filterConfig: { filters: [topN] } });
-visual("tablero", "chart_segmento", "barChart", { x: 648, y: 1272, w: 600, h: 376 }, {
+visual("tablero", "chart_segmento", "barChart", { x: 968, y: 1136, w: 920, h: 392 }, {
   query: {
     queryState: {
       Category: { projections: [pr(fCol(T, "Segmento UNSPSC"), "Segmento UNSPSC")] },
@@ -601,21 +598,7 @@ visual("tablero", "chart_segmento", "barChart", { x: 648, y: 1272, w: 600, h: 37
   objects: { dataPoint: [props({ defaultColor: col(C.verde) })], labels: etiquetasMillones(), categoryAxis: [props({ showAxisTitle: bool(true), titleText: str("Segmento UNSPSC"), titleFontSize: num(10), titleColor: col(C.textoSuave), fontSize: num(10) })] },
   visualContainerObjects: vcoPanel("Valor por segmento UNSPSC", "Barras del valor total por segmento del clasificador UNSPSC, de mayor a menor", "Segmento del primer código UNSPSC · millones de pesos"),
 });
-visual("tablero", "chart_fuente", "donutChart", { x: 1264, y: 1272, w: 624, h: 376 }, {
-  query: {
-    queryState: {
-      Category: { projections: [pr(fCol(T, "Fuente de recursos"), "Fuente de recursos")] },
-      Y: { projections: [pr(fMea(T, "Valor total PAA"), "Valor total")] },
-    },
-    sortDefinition: { sort: [{ field: fMea(T, "Valor total PAA"), direction: "Descending" }], isDefaultSort: false },
-  },
-  objects: {
-    legend: [props({ show: bool(true), position: str("Right"), fontSize: num(10) })],
-    labels: [props({ show: bool(true), labelStyle: str("Percent of total"), fontSize: num(10) })],
-  },
-  visualContainerObjects: vcoPanel("Fuente de recursos", "Anillo con la participación de cada fuente de recursos en el valor total", "Participación en el valor total"),
-});
-visual("tablero", "chart_rango", "lineClusteredColumnComboChart", { x: 32, y: 1664, w: 920, h: 376 }, {
+visual("tablero", "chart_rango", "lineClusteredColumnComboChart", { x: 32, y: 1544, w: 920, h: 392 }, {
   query: {
     queryState: {
       Category: { projections: [pr(fCol(T, "Rango de valor"), "Rango de valor de la línea")] },
@@ -640,7 +623,7 @@ visual("tablero", "chart_rango", "lineClusteredColumnComboChart", { x: 32, y: 16
   },
   visualContainerObjects: vcoPanel("¿Cuántas líneas hay por rango de valor y cuánto suman?", "Columnas con el número de líneas en cada rango de valor y línea con el porcentaje del valor total que suman; pocas líneas grandes concentran gran parte del valor", "Columnas verdes: cuántas líneas hay en el rango · Línea oliva: qué parte del valor total suman esas líneas"),
 });
-visual("tablero", "chart_unidad", "barChart", { x: 968, y: 1664, w: 920, h: 376 }, {
+visual("tablero", "chart_unidad", "barChart", { x: 968, y: 1544, w: 920, h: 392 }, {
   query: {
     queryState: {
       Category: { projections: [pr(fCol(T, "Unidad de contratación"), "Unidad de contratación")] },

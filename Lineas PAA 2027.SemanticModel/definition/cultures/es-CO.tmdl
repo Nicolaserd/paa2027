@@ -15,17 +15,7 @@ cultureInfo es-CO
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Líneas registradas": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Líneas": {
+			          "líneas": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -86,16 +76,6 @@ cultureInfo es-CO
 			      },
 			      "State": "Generated",
 			      "Terms": [
-			        {
-			          "Dependencias": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
 			        {
 			          "Dependencias solicitantes": {
 			            "State": "Suggested",
