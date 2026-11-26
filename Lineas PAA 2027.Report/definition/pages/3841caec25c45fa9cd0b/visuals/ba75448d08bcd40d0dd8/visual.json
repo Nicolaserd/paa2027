@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "ba75448d08bcd40d0dd8",
   "position": {
-    "x": 64,
-    "y": 536,
+    "x": 60.84507042253521,
+    "y": 532,
     "z": 8000,
-    "height": 32,
-    "width": 1080,
+    "height": 36,
+    "width": 1104,
     "tabOrder": 8000
   },
   "visual": {
@@ -22,12 +22,11 @@
                     "value": "Líneas por tipo de necesidad",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "16px",
-                      "color": "#D7E6DD"
+                      "fontSize": "19px",
+                      "color": "#d7e6dd"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

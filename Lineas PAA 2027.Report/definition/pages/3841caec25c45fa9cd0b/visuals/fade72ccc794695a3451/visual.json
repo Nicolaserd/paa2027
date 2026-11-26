@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "fade72ccc794695a3451",
   "position": {
-    "x": 300,
-    "y": 568,
+    "x": 304,
+    "y": 572,
     "z": 11000,
-    "height": 56,
-    "width": 180,
+    "height": 76,
+    "width": 188,
     "tabOrder": 11000
   },
   "visual": {
@@ -22,7 +22,7 @@
                     "value": "Contratación de personal - Proyectos de inversión",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "15px",
+                      "fontSize": "18px",
                       "color": "#D7E6DD"
                     }
                   }
