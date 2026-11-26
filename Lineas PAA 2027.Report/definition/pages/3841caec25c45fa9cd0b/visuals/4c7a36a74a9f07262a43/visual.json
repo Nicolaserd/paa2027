@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "4c7a36a74a9f07262a43",
   "position": {
-    "x": 528,
-    "y": 572,
+    "x": 832,
+    "y": 528,
     "z": 14000,
-    "height": 76,
-    "width": 188,
+    "height": 56,
+    "width": 312,
     "tabOrder": 14000
   },
   "visual": {
@@ -22,8 +22,8 @@
                     "value": "Proyecto de Inversión",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "18px",
-                      "color": "#D7E6DD"
+                      "fontSize": "21px",
+                      "color": "#E4EFE8"
                     }
                   }
                 ],

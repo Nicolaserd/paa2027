@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "ba75448d08bcd40d0dd8",
   "position": {
-    "x": 60.84507042253521,
-    "y": 532,
+    "x": 96,
+    "y": 488,
     "z": 8000,
     "height": 36,
-    "width": 1104,
+    "width": 640,
     "tabOrder": 8000
   },
   "visual": {
@@ -22,8 +22,8 @@
                     "value": "Líneas por tipo de necesidad",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "19px",
-                      "color": "#d7e6dd"
+                      "fontSize": "22px",
+                      "color": "#D7E6DD"
                     }
                   }
                 ]

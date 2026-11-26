@@ -359,19 +359,7 @@ cultureInfo es-CO
 			          "ConceptualProperty": "Etapa"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Etapa": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "líneas_paa.unidad_de_contratación": {
 			      "Definition": {

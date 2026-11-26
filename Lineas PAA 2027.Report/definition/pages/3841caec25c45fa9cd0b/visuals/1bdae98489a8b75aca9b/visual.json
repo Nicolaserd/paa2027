@@ -3,7 +3,7 @@
   "name": "1bdae98489a8b75aca9b",
   "position": {
     "x": 64,
-    "y": 776,
+    "y": 928,
     "z": 23000,
     "height": 56,
     "width": 260,
@@ -52,7 +52,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#00482B'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -84,7 +84,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#00482B'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -129,7 +129,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#00482B'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -147,7 +147,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#00482B'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -187,7 +187,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "100D"
                 }
               }
             }
@@ -203,7 +203,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D7E6DD'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -212,7 +212,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "84D"
                 }
               }
             }

@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "b64a524933c5d42da16a",
   "position": {
-    "x": 502,
-    "y": 576,
+    "x": 800,
+    "y": 528,
     "z": 16000,
-    "height": 172,
+    "height": 360,
     "width": 1,
     "tabOrder": 16000
   },
@@ -42,7 +42,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "70D"
+                  "Value": "72D"
                 }
               }
             }

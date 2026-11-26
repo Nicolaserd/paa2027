@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "ed1fec7afeecd50378e8",
   "position": {
-    "x": 976,
-    "y": 572,
+    "x": 832,
+    "y": 716,
     "z": 20000,
-    "height": 76,
-    "width": 188,
+    "height": 56,
+    "width": 312,
     "tabOrder": 20000
   },
   "visual": {
@@ -22,8 +22,8 @@
                     "value": "Fondos de Inversión-Contratación de Personal",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
-                      "fontSize": "18px",
-                      "color": "#D7E6DD"
+                      "fontSize": "21px",
+                      "color": "#E4EFE8"
                     }
                   }
                 ],
