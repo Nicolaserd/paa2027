@@ -458,7 +458,7 @@ conteos("portada", "conteo", { x: 64, y: 568, w: 1080, gap: 24, hNombre: 56 }, [
   ...TIPOS_NECESIDAD.map((t) => ({ nombre: t, tipo: t })),
 ], true);
 boton("portada", "btn_explorar", { x: 64, y: 736, w: 260, h: 56 }, "Explorar el tablero", "PageNavigation", "primario", { navigationSection: str(P.tablero.id), tooltip: str("Ir al tablero de líneas del PAA") }, "rightArrow");
-texto("portada", "source_note", { x: 64, y: 1000, w: 1080, h: 40 }, "Fuente: LINEAS NUEVAS PAA 2027 (exportación del sistema PAA, corte 25/11/2026). Valores en pesos colombianos.", { fontFamily: "Segoe UI", fontSize: "13px", color: "#A9C4B6" });
+texto("portada", "source_note", { x: 64, y: 1000, w: 1080, h: 40 }, "Fuente: LINEAS NUEVAS PAA 2027 (exportación del sistema PAA, corte 26/11/2026). Valores en pesos colombianos.", { fontFamily: "Segoe UI", fontSize: "13px", color: "#A9C4B6" });
 
 // ---------- TABLERO (una sola página) ----------
 // Bloque 1 (primera pantalla): cabecera con filtros, KPIs, tabla dominante y 3 gráficas.
